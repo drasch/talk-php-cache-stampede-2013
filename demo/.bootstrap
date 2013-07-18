@@ -1,25 +1,22 @@
 #!/bin/bash
 
-if [ ! -f /etc/.setup ] ; then
-	echo install: --no-ri --no-rdoc > ~/.gemrc
-	echo update: --no-ri --no-rdoc >> ~/.gemrc
+echo install: --no-ri --no-rdoc > ~/.gemrc
+echo update: --no-ri --no-rdoc >> ~/.gemrc
 
-	apt-get update
-	DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server \
-		libmysqlclient-dev g++ screen httping \
-		apache2-utils curl memcached libmemcache-dev php5-cli
-	#gem install bundler
+apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server \
+	libmysqlclient-dev g++ screen httping \
+	apache2-utils curl memcached libmemcache-dev php5-cli
+#gem install bundler
 
-	cd /vagrant
+cd /vagrant
 
-	[[ -e /usr/share/mysql/wikimedia_hits.ssv ]] || ./getdata.sh
+[[ -e /usr/share/mysql/wikimedia_hits.ssv ]] || ./getdata.sh
 
-	#bundle install
+#bundle install
 
-	[[ -e /var/lock/imported.lock ]] || ruby db_create.rb && touch /var/lock/imported.lock
-	
-	curl -sS https://getcomposer.org/installer | php
-	./composer.phar install
+[[ -e /var/lock/imported.lock ]] || ./db_create.sh && touch /var/lock/imported.lock
 
-	touch /etc/.setup
-fi
+[[ -e composer.phar ]] || curl -sS https://getcomposer.org/installer | php
+
+[[ -d vendor ]] || ./composer.phar install
