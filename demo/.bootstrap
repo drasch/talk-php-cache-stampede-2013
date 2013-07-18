@@ -3,10 +3,11 @@
 echo install: --no-ri --no-rdoc > ~/.gemrc
 echo update: --no-ri --no-rdoc >> ~/.gemrc
 
-apt-get update
+[[ -e /var/lib/misc/update.lock ]] || apt-get update && touch /var/lib/misc/update.lock
+
 DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server \
 	libmysqlclient-dev g++ screen httping \
-	apache2-utils curl memcached libmemcache-dev php5-cli
+	apache2-utils curl memcached libmemcache-dev php5-cli php5
 #gem install bundler
 
 cd /vagrant
@@ -15,8 +16,10 @@ cd /vagrant
 
 #bundle install
 
-[[ -e /var/lock/imported.lock ]] || ./db_create.sh && touch /var/lock/imported.lock
+[[ -e /var/lib/misc/imported.lock ]] || ./db_create.sh && touch /var/lib/misc/imported.lock
 
 [[ -e composer.phar ]] || curl -sS https://getcomposer.org/installer | php
 
 [[ -d vendor ]] || ./composer.phar install
+
+ln -nsf /vagrant/web/index.php /var/www/index.php
