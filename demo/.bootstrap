@@ -3,7 +3,7 @@
 echo install: --no-ri --no-rdoc > ~/.gemrc
 echo update: --no-ri --no-rdoc >> ~/.gemrc
 
-
+apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server \
 	libmysqlclient-dev g++ screen httping \
 	apache2-utils curl memcached libmemcache-dev
