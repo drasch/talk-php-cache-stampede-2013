@@ -7,7 +7,8 @@ echo update: --no-ri --no-rdoc >> ~/.gemrc
 
 DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server \
 	libmysqlclient-dev g++ screen httping \
-	apache2-utils curl memcached libmemcache-dev php5-cli php5
+	apache2-utils curl memcached libmemcache-dev php5-cli php5 \
+	php5-mysql php5-memcache
 #gem install bundler
 
 cd /vagrant
