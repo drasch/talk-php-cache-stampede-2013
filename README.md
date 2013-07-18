@@ -37,7 +37,8 @@ watch the timings, try again with v1 through v5
 2. *v2* - add hit counters
 3. *v3* - add batching
 4. *v4* - add caching 
-4. *v5* - fix cache stampede
+4. *v5* - cache and batch
+5. *v6* - fix cache stampede
 
 
 
