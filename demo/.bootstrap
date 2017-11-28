@@ -7,13 +7,13 @@ echo update: --no-ri --no-rdoc >> ~/.gemrc
 
 DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server \
 	libmysqlclient-dev g++ screen httping \
-	apache2-utils curl memcached libmemcache-dev php5-cli php5 \
-	php5-mysql php5-memcache
+	apache2-utils curl memcached libmemcache-dev php7.0-cli php7.0 \
+	php7.0-mysql php-memcached libapache2-mod-php
 #gem install bundler
 
 cd /vagrant
 
-[[ -e /usr/share/mysql/wikimedia_hits.ssv ]] || ./getdata.sh
+[[ -e /var/lib/mysql-files/wikimedia_hits.ssv ]] || ./getdata.sh
 
 #bundle install
 
